@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemsArchivos;
 use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ItemsArchivosController extends Controller
 {
@@ -12,7 +14,7 @@ class ItemsArchivosController extends Controller
      */
     public function index()
     {
-        $items = ItemsArchivos::all();
+        $items = ItemsArchivos::where('estado', '1')->get();
         return response()->json($items);
     }
 
@@ -29,15 +31,28 @@ class ItemsArchivosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        try{
+            $item = ItemsArchivos::create([
+                'nombre' => $request->nombreRequisito,
+            ]);
+            return response()->json(['mensaje' => 'true']);
+        }catch(Exception $e){
+            return response()->json(['mensaje' => $e->getMessage()]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $id = $request->id;
+        $item = ItemsArchivos::FindorFail($id);
+
+        $html = view('components.rowCargaDeArchivos',compact('item'))->render();
+        
+        return response()->json(['html'=>$html]);
     }
 
     /**
@@ -59,8 +74,14 @@ class ItemsArchivosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $item = ItemsArchivos::FindorFail($request->id);
+        
+        $item->estado = 0;
+
+        $item->save();
+
+        return response()->json(['mensaje'=>'Requisito de Archivo Eliminado Correctamente']);
     }
 }

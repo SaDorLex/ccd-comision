@@ -13,7 +13,7 @@ class AsignaturaController extends Controller
      */
     public function index()
     {
-        $asignaturas = Asignatura::all();
+        $asignaturas = Asignatura::where('estado','1')->get();
         return response()->json($asignaturas);
     }
 
@@ -34,7 +34,7 @@ class AsignaturaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.  
      */
     public function show(Request $request)
     {

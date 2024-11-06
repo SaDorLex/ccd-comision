@@ -103,3 +103,9 @@ Route::get('evaluaciones/{id}', [EvaluacionController::class, 'show'])->name('ev
 //CRUD de los items de archivos para subir??? hay que cambiarle el nombre a esto :/
 
 Route::get('listarItemsDisponibles', [ItemsArchivosController::class, 'index'])->name('listarItemsDisponibles');
+
+Route::post('crearArchivoNuevo', [ItemsArchivosController::class, 'store'])->name('crearArchivoNuevo');
+
+Route::get('getBladeArchivo', [ItemsArchivosController::class, 'show'])->name('getBladeArchivo');
+
+Route::post('deleteArchivo', [ItemsArchivosController::class, 'destroy'])->name('deleteArchivo');

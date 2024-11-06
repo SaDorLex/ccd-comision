@@ -1,4 +1,5 @@
 
+
 function inputFileClick(id) {
     input = document.getElementById(id);
     input.click();
@@ -204,14 +205,118 @@ function listaArchivos(){
         url: urlCargaArchivos,
         type: 'GET',
         success: function(response){
-            
             $.each(response, function(index, item){
-                alert(item);
-            })
+                var lstArchivos = $('#lstCargaArchivos');
+                lstArchivos.empty();
+                $.ajax({
+                    url: urlGetBladeArchivo,
+                    data: {
+                        id: item.id,
+                    },
+                    success: function(response){
+                        var lstArchivos = $('#lstCargaArchivos');
+                        lstArchivos.append(response.html);
+                    }
+                });
+            });
         }
     });
 }
 
 $('#btnAgregarArchivo').on('click', function(){
-    
+    $('#formNewRequisito').toggleClass('flex');
+    $('#formNewRequisito').toggleClass('hidden');
+});
+
+$('#closeNewRequisito').on('click', function(){
+    $('#formNewRequisito').toggleClass('flex');
+    $('#formNewRequisito').toggleClass('hidden');
+});
+
+$('#formCrearArchivoNuevo').on('submit', function(event){
+    event.preventDefault();
+    $.ajax({
+        url: urlCrearArchivo,
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function(response){
+            if(response.mensaje = 'true'){
+                alert('Requisito Creado Correctamente');
+                $('#formNewRequisito').toggleClass('flex');
+                $('#formNewRequisito').toggleClass('hidden');
+                listaArchivos();
+            }else{
+                alert(response.mensaje);
+            }
+        }
+    })
 })
+
+function nextForm(){
+    var partUno = $('#formParteUno');
+    var partDos = $('#formParteDos');
+    var partTres = $('#formParteTres');
+    var btnSiguiente = $('#btnSiguiente');
+    var btnAtras = $('#btnRegresar')
+
+    if(partUno.hasClass('block')){
+        partUno.removeClass('block');
+        partUno.addClass('hidden');
+
+        partDos.removeClass('hidden');
+        partDos.addClass('block');
+
+        btnAtras.removeClass('hidden');
+    }else if(partDos.hasClass('block')){
+        partDos.removeClass('block');
+        partDos.addClass('hidden');
+
+        partTres.removeClass('hidden');
+        partTres.addClass('block');
+
+        btnSiguiente.addClass('hidden');
+    }
+}
+
+function prevForm(){
+    var partUno = $('#formParteUno');
+    var partDos = $('#formParteDos');
+    var partTres = $('#formParteTres');
+    var btnSiguiente = $('#btnSiguiente');
+    var btnAtras = $('#btnRegresar')
+
+    if(partDos.hasClass('block')){
+        partUno.removeClass('hidden');
+        partUno.addClass('block');
+
+        partDos.removeClass('block');
+        partDos.addClass('hidden');
+        
+        btnAtras.addClass('hidden');
+    }else if(partTres.hasClass('block')){
+        partDos.removeClass('hidden');
+        partDos.addClass('block');
+
+        partTres.removeClass('block');
+        partTres.addClass('hidden');
+
+        btnSiguiente.removeClass('hidden');
+    }
+}
+
+function deleteArchivo(id){
+    if(confirm("¿Estas seguro de Eliminar este Requisito?")){
+        $.ajax({
+            url: urlEliminarArchivo,
+            method: 'POST',
+            data: {
+                _token: token,
+                id: id,
+            },
+            success: function(response){
+                alert(response.mensaje);
+                listaArchivos();
+            }
+        })
+    }
+}
