@@ -58,17 +58,30 @@ class ItemsArchivosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request)
     {
-        //
+        $id = $request->id;
+
+        $item = ItemsArchivos::FindorFail($id);
+
+        return response()->json(['item'=>$item]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $id = $request->idReq;
+
+        $item = ItemsArchivos::FindorFail($id);
+
+        $item->nombre = $request->nombreReq;
+
+        $item->save();
+
+        return response()->json(['mensaje'=>'Requisito de Archivo Modificado Correctamente']);
+
     }
 
     /**

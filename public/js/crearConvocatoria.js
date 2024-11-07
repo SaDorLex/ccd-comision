@@ -90,7 +90,7 @@ function changeDia(dia) {
     checkbox.prop('checked', true);
 }
 
-$('#btnCrearConvocatoria').on('click', function(){
+$('#btnCrearConvocatoria').on('click', function () {
     let idActividades = [];
     let fechas_inicio = [];
     let fechas_termino = [];
@@ -98,8 +98,8 @@ $('#btnCrearConvocatoria').on('click', function(){
 
     let actividades = $('.actividades');
     let dias = $('.diaCheck');
-    
-    actividades.each(function(index){
+
+    actividades.each(function (index) {
         let id = $(this).attr('id');
         idActividades.push(id);
         let valFechaInicio = $(this).find('.fecha_inicio').val();
@@ -107,20 +107,20 @@ $('#btnCrearConvocatoria').on('click', function(){
         fechas_inicio.push(valFechaInicio);
         fechas_termino.push(valFechaTermino);
     })
-    
-    dias.each(function(index){
+
+    dias.each(function (index) {
         let selected = $(this).prop('checked');
         diasDispo.push(selected);
     });
 
     let vefDias = diasDispo.some(elemento => elemento === true);
 
-    if(!vefDias){
+    if (!vefDias) {
         alert('Seleccione al menos un Día de Atención');
         return;
     }
 
-    if(fechas_inicio.includes("") || fechas_termino.includes("")){
+    if (fechas_inicio.includes("") || fechas_termino.includes("")) {
         alert("Complete las fechas en el Cronograma");
         return;
     }
@@ -145,14 +145,14 @@ $('#btnCrearConvocatoria').on('click', function(){
     formData.append('fileBases', fileBases);
     formData.append('pago', pago);
     formData.append('comentarios', comentario);
-    
-    idActividades.forEach(function(id,index){
+
+    idActividades.forEach(function (id, index) {
         formData.append('idActividades[]', id);
         formData.append('fechas_inicio[]', fechas_inicio[index]);
         formData.append('fechas_termino[]', fechas_termino[index]);
     });
 
-    diasDispo.forEach(function(id,index){
+    diasDispo.forEach(function (id, index) {
         formData.append('diasAtencion[]', diasDispo[index]);
     });
 
@@ -162,50 +162,50 @@ $('#btnCrearConvocatoria').on('click', function(){
         data: formData,
         contentType: false,
         processData: false,
-        success: function(response){
+        success: function (response) {
             alert('Convocatoria agregada correctamente');
             window.location.href = response.redirect;
         }
     });
 });
 
-$(function(){
+$(function () {
     const today = new Date();
     const formatedToday = today.toISOString().split('T')[0];
     $('#fecha_inicio').attr('min', formatedToday);
 });
 
-$('#fecha_inicio').on('change', function(){
+$('#fecha_inicio').on('change', function () {
     let fechaInicio = $(this).val();
-    $('#fecha_termino').attr('min',fechaInicio);
+    $('#fecha_termino').attr('min', fechaInicio);
     $('#fecha_termino').removeAttr('disabled');
 
     let actividad = $('.actividades').first();
     actividad.find('input').val(fechaInicio);
 
     let actividades = $('.actividades');
-    actividades.each(function(index){
-        $(this).find('input').attr('min',fechaInicio);
+    actividades.each(function (index) {
+        $(this).find('input').attr('min', fechaInicio);
     });
 });
 
-$('#fecha_termino').on('change',function(){
+$('#fecha_termino').on('change', function () {
     let fechaTermino = $(this).val();
     let actividades = $('.actividades');
-    actividades.each(function(index){
-        $(this).find('input').attr('max',fechaTermino);
+    actividades.each(function (index) {
+        $(this).find('input').attr('max', fechaTermino);
         $(this).find('input').removeAttr('disabled');
     });
 
     actividades.last().find('input').val(fechaTermino);
 })
 
-function listaArchivos(){
+function listaArchivos() {
     $.ajax({
         url: urlCargaArchivos,
         type: 'GET',
-        success: function(response){
-            $.each(response, function(index, item){
+        success: function (response) {
+            $.each(response, function (index, item) {
                 var lstArchivos = $('#lstCargaArchivos');
                 lstArchivos.empty();
                 $.ajax({
@@ -213,7 +213,7 @@ function listaArchivos(){
                     data: {
                         id: item.id,
                     },
-                    success: function(response){
+                    success: function (response) {
                         var lstArchivos = $('#lstCargaArchivos');
                         lstArchivos.append(response.html);
                     }
@@ -223,43 +223,43 @@ function listaArchivos(){
     });
 }
 
-$('#btnAgregarArchivo').on('click', function(){
+$('#btnAgregarArchivo').on('click', function () {
     $('#formNewRequisito').toggleClass('flex');
     $('#formNewRequisito').toggleClass('hidden');
 });
 
-$('#closeNewRequisito').on('click', function(){
+$('#closeNewRequisito').on('click', function () {
     $('#formNewRequisito').toggleClass('flex');
     $('#formNewRequisito').toggleClass('hidden');
 });
 
-$('#formCrearArchivoNuevo').on('submit', function(event){
+$('#formCrearArchivoNuevo').on('submit', function (event) {
     event.preventDefault();
     $.ajax({
         url: urlCrearArchivo,
         method: 'POST',
         data: $(this).serialize(),
-        success: function(response){
-            if(response.mensaje = 'true'){
+        success: function (response) {
+            if (response.mensaje = 'true') {
                 alert('Requisito Creado Correctamente');
                 $('#formNewRequisito').toggleClass('flex');
                 $('#formNewRequisito').toggleClass('hidden');
                 listaArchivos();
-            }else{
+            } else {
                 alert(response.mensaje);
             }
         }
     })
 })
 
-function nextForm(){
+function nextForm() {
     var partUno = $('#formParteUno');
     var partDos = $('#formParteDos');
     var partTres = $('#formParteTres');
     var btnSiguiente = $('#btnSiguiente');
     var btnAtras = $('#btnRegresar')
 
-    if(partUno.hasClass('block')){
+    if (partUno.hasClass('block')) {
         partUno.removeClass('block');
         partUno.addClass('hidden');
 
@@ -267,7 +267,7 @@ function nextForm(){
         partDos.addClass('block');
 
         btnAtras.removeClass('hidden');
-    }else if(partDos.hasClass('block')){
+    } else if (partDos.hasClass('block')) {
         partDos.removeClass('block');
         partDos.addClass('hidden');
 
@@ -278,22 +278,22 @@ function nextForm(){
     }
 }
 
-function prevForm(){
+function prevForm() {
     var partUno = $('#formParteUno');
     var partDos = $('#formParteDos');
     var partTres = $('#formParteTres');
     var btnSiguiente = $('#btnSiguiente');
     var btnAtras = $('#btnRegresar')
 
-    if(partDos.hasClass('block')){
+    if (partDos.hasClass('block')) {
         partUno.removeClass('hidden');
         partUno.addClass('block');
 
         partDos.removeClass('block');
         partDos.addClass('hidden');
-        
+
         btnAtras.addClass('hidden');
-    }else if(partTres.hasClass('block')){
+    } else if (partTres.hasClass('block')) {
         partDos.removeClass('hidden');
         partDos.addClass('block');
 
@@ -304,8 +304,8 @@ function prevForm(){
     }
 }
 
-function deleteArchivo(id){
-    if(confirm("¿Estas seguro de Eliminar este Requisito?")){
+function deleteArchivo(id) {
+    if (confirm("¿Estas seguro de Eliminar este Requisito?")) {
         $.ajax({
             url: urlEliminarArchivo,
             method: 'POST',
@@ -313,10 +313,59 @@ function deleteArchivo(id){
                 _token: token,
                 id: id,
             },
-            success: function(response){
+            success: function (response) {
                 alert(response.mensaje);
                 listaArchivos();
             }
         })
     }
+}
+
+function updateArchivo(id) {
+    var formEditar = $('#formModificarRequisito');
+    formEditar.toggleClass('flex');
+    formEditar.toggleClass('hidden');
+    $.ajax({
+        url: urlGetArchivo,
+        method: 'GET',
+        data: {
+            _token: token,
+            id: id,
+        },
+        success: function (response) {
+            var inputEditarReq = $('#inEditarReq');
+            $('#inIdReq').val(response.item.id);
+            inputEditarReq.val(response.item.nombre);
+        }
+    });
+}
+
+$('#closeModificarRequisito').on('click', function () {
+    $('#formModificarRequisito').toggleClass('flex');
+    $('#formModificarRequisito').toggleClass('hidden');
+});
+
+$('#formModificarArchivo').on('submit', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: urlUpdateArchivo,
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function (response) {
+            alert(response.mensaje);
+            $('#formModificarRequisito').toggleClass('flex');
+            $('#formModificarRequisito').toggleClass('hidden');
+            listaArchivos();
+        }
+    })
+});
+
+function selectArchivos(){
+    var selects = $('#lstCargaArchivos').find('input');
+    var ids = [];
+    selects.each(function(index, checkbox){
+        if(checkbox.checked){
+            ids.push($(checkbox).data('id'));
+        }
+    })
 }

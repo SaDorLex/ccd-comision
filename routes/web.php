@@ -109,3 +109,7 @@ Route::post('crearArchivoNuevo', [ItemsArchivosController::class, 'store'])->nam
 Route::get('getBladeArchivo', [ItemsArchivosController::class, 'show'])->name('getBladeArchivo');
 
 Route::post('deleteArchivo', [ItemsArchivosController::class, 'destroy'])->name('deleteArchivo');
+
+Route::get('editArchivo', [ItemsArchivosController::class, 'edit'])->name('editArchivo');
+
+Route::post('updateArchivo', [ItemsArchivosController::class, 'update'])->name('updateArchivo');

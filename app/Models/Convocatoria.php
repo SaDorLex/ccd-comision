@@ -46,4 +46,8 @@ class Convocatoria extends Model
     {
         return $this->belongsToMany(Actividad::class, 'convocatoria_actidad', 'id_convocatoria', 'id_actividad')->withPivot('fecha_inicio', 'fecha_termino');
     }
+
+    public function itemsArchivos(){
+        return $this->belongsToMany(ItemsArchivos::class, 'requisitos', 'id_convocatoria', 'id_item');
+    }
 }

@@ -36,6 +36,33 @@
             </form>
         </div>
     </div>
+    <div id="formModificarRequisito" class="bg-[rgba(0,0,0,0.25)] h-full w-full z-10 fixed hidden">
+        <div
+            class="w-[40%] h-auto bg-white border-azul-pedro-400 border-[0.2vw] rounded-[0.5vw] m-auto flex flex-col relative">
+            <div class="absolute right-[0.5vw]">
+                <button id="closeModificarRequisito">
+                    <span class="material-symbols-outlined text-azul-pedro-600">close</span>
+                </button>
+            </div>
+            <div class="m-auto text-azul-pedro-600 font-bold w-fit my-[1vw] text-[1.2vw]">
+                Modificar Requisito de Archivo
+            </div>
+            <form id="formModificarArchivo" class="flex flex-col">
+                @csrf
+                <div class=" w-fit mx-auto flex gap-[1vw]">
+                    <p class="text-[1.2vw] w-fit my-auto">Nombre:</p>
+                    <input name="idReq" class="hidden" id="inIdReq">
+                    <input name="nombreReq" id="inEditarReq"
+                        class="border-[0.15vw] border-azul-pedro-500 px-[0.4vw] py-[0.4vw] rounded-[0.5vw] w-[20vw] text-[1vw]"
+                        type="text">
+                </div>
+                <div class="my-[1vw] mx-auto">
+                    <button
+                        class="bg-amber-500 px-[0.5vw] py-[0.25vw] rounded-[0.5vw] transition-all duration-300 ease-linear text-white hover:bg-amber-600 ">Modificar</button>
+                </div>
+            </form>
+        </div>
+    </div>
     @php
         $num = 1;
     @endphp
@@ -217,6 +244,8 @@
         var urlCrearArchivo = '{{ route('crearArchivoNuevo') }}';
         var urlGetBladeArchivo = '{{ route('getBladeArchivo') }}';
         var urlEliminarArchivo = '{{route('deleteArchivo')}}';
+        var urlGetArchivo = '{{route('editArchivo')}}';
+        var urlUpdateArchivo = '{{route('updateArchivo')}}';
         var token = '{{ csrf_token() }}';
     </script>
     <script src="{{ asset('js/crearConvocatoria.js') }}"></script>

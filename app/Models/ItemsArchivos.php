@@ -19,4 +19,9 @@ class ItemsArchivos extends Model
     protected $fillable = [
         'nombre',
     ];
+
+    public function convocatoria()
+    {
+        return $this->belongsToMany(Convocatoria::class, 'requisitos', 'id_item', 'id_convocatoria');
+    }
 }
