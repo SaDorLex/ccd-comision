@@ -229,3 +229,94 @@ $('#fecha_termino').on('change',function(){
 
     actividades.last().find('input').val(fechaTermino);
 })
+
+function nextForm() {
+    var partUno = $('#formParteUno');
+    var partDos = $('#formParteDos');
+    var partTres = $('#formParteTres');
+    var btnSiguiente = $('#btnSiguiente');
+    var btnAtras = $('#btnRegresar')
+
+    if (partUno.hasClass('block')) {
+        partUno.removeClass('block');
+        partUno.addClass('hidden');
+
+        partDos.removeClass('hidden');
+        partDos.addClass('block');
+
+        btnAtras.removeClass('hidden');
+    } else if (partDos.hasClass('block')) {
+        partDos.removeClass('block');
+        partDos.addClass('hidden');
+
+        partTres.removeClass('hidden');
+        partTres.addClass('block');
+
+        btnSiguiente.addClass('hidden');
+    }
+}
+
+function prevForm() {
+    var partUno = $('#formParteUno');
+    var partDos = $('#formParteDos');
+    var partTres = $('#formParteTres');
+    var btnSiguiente = $('#btnSiguiente');
+    var btnAtras = $('#btnRegresar')
+
+    if (partDos.hasClass('block')) {
+        partUno.removeClass('hidden');
+        partUno.addClass('block');
+
+        partDos.removeClass('block');
+        partDos.addClass('hidden');
+
+        btnAtras.addClass('hidden');
+    } else if (partTres.hasClass('block')) {
+        partDos.removeClass('hidden');
+        partDos.addClass('block');
+
+        partTres.removeClass('block');
+        partTres.addClass('hidden');
+
+        btnSiguiente.removeClass('hidden');
+    }
+}
+
+$(function(){
+    $.ajax({
+        url: urlCargaArchivos,
+        type: 'GET',
+        success: function (response) {
+            var promesas = []; // Array para almacenar promesas
+
+            $.each(response, function (index, item) {
+                var lstArchivos = $('#lstCargaArchivos');
+                lstArchivos.empty();
+
+                // Agregar la solicitud AJAX anidada como una promesa al array
+                var promesa = $.ajax({
+                    url: urlGetBladeArchivo,
+                    data: {
+                        id: item.id,
+                    },
+                    success: function (response) {
+                        var lstArchivos = $('#lstCargaArchivos');
+                        lstArchivos.append(response.html);
+                    }
+                });
+
+                promesas.push(promesa); // Agregar la promesa al array
+            });
+
+            // Esperar a que todas las solicitudes AJAX anidadas se completen
+            $.when.apply($, promesas).done(function() {
+                // Ejecutar la función una vez que todas las solicitudes hayan terminado
+                convocatoria.items_archivos.forEach(function(item, index) {
+                    var lstArchivos = $('#lstCargaArchivos');
+                    var checkbox = lstArchivos.find('input[data-id="' + item.id + '"]');
+                    checkbox.prop('checked', true);
+                });
+            });
+        }
+    });
+})

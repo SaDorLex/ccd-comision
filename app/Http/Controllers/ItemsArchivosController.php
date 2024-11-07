@@ -35,6 +35,7 @@ class ItemsArchivosController extends Controller
         try{
             $item = ItemsArchivos::create([
                 'nombre' => $request->nombreRequisito,
+                'tipo_carpeta' => $request->tipoCarpeta,
             ]);
             return response()->json(['mensaje' => 'true']);
         }catch(Exception $e){
@@ -77,6 +78,7 @@ class ItemsArchivosController extends Controller
         $item = ItemsArchivos::FindorFail($id);
 
         $item->nombre = $request->nombreReq;
+        $item->tipo_carpeta = $request->tipoCarpeta;
 
         $item->save();
 

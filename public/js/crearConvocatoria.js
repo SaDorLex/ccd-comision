@@ -95,6 +95,7 @@ $('#btnCrearConvocatoria').on('click', function () {
     let fechas_inicio = [];
     let fechas_termino = [];
     let diasDispo = [];
+    let idsArchivos = selectArchivos();
 
     let actividades = $('.actividades');
     let dias = $('.diaCheck');
@@ -154,6 +155,10 @@ $('#btnCrearConvocatoria').on('click', function () {
 
     diasDispo.forEach(function (id, index) {
         formData.append('diasAtencion[]', diasDispo[index]);
+    });
+
+    idsArchivos.forEach(function(id, index){
+        formData.append('idsArchivos[]', idsArchivos[index]);
     });
 
     $.ajax({
@@ -333,9 +338,9 @@ function updateArchivo(id) {
             id: id,
         },
         success: function (response) {
-            var inputEditarReq = $('#inEditarReq');
             $('#inIdReq').val(response.item.id);
-            inputEditarReq.val(response.item.nombre);
+            $('#inEditarReq').val(response.item.nombre);
+            $('#inSelectReq').val(response.item.tipo_carpeta);
         }
     });
 }
@@ -368,4 +373,6 @@ function selectArchivos(){
             ids.push($(checkbox).data('id'));
         }
     })
+
+    return ids;
 }

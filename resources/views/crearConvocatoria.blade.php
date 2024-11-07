@@ -23,11 +23,15 @@
             </div>
             <form id="formCrearArchivoNuevo" class="flex flex-col">
                 @csrf
-                <div class=" w-fit mx-auto flex gap-[1vw]">
-                    <p class="text-[1.2vw] w-fit my-auto">Nombre:</p>
-                    <input name="nombreRequisito"
-                        class="border-[0.15vw] border-azul-pedro-500 px-[0.4vw] py-[0.4vw] rounded-[0.5vw] w-[20vw] text-[1vw]"
-                        type="text">
+                <div class=" grid gap-[0.5vw] [grid-template-columns:0.5fr_1fr]">
+                    <label class="m-auto">Nombre</label>
+                    <input name="nombreRequisito" class="w-[90%] mx-auto border-azul-pedro-600 border-[0.15vw] rounded-[0.5vw] py-[0.2vw] px-[0.4vw]" type="text">
+                    <label class="m-auto">Tipo de Carpeta</label>
+                    <select name="tipoCarpeta" class="w-fit mx-auto">
+                        <option>---</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
                 </div>
                 <div class="my-[1vw] mx-auto">
                     <button
@@ -49,12 +53,15 @@
             </div>
             <form id="formModificarArchivo" class="flex flex-col">
                 @csrf
-                <div class=" w-fit mx-auto flex gap-[1vw]">
-                    <p class="text-[1.2vw] w-fit my-auto">Nombre:</p>
+                <div class=" grid gap-[0.5vw] [grid-template-columns:0.5fr_1fr]">
+                    <label class="m-auto">Nombre</label>
                     <input name="idReq" class="hidden" id="inIdReq">
-                    <input name="nombreReq" id="inEditarReq"
-                        class="border-[0.15vw] border-azul-pedro-500 px-[0.4vw] py-[0.4vw] rounded-[0.5vw] w-[20vw] text-[1vw]"
-                        type="text">
+                    <input name="nombreReq" id="inEditarReq" class="w-[90%] mx-auto border-azul-pedro-600 border-[0.15vw] rounded-[0.5vw] py-[0.2vw] px-[0.4vw]" type="text">
+                    <label class="m-auto">Tipo de Carpeta</label>
+                    <select id="inSelectReq" name="tipoCarpeta" class="w-fit mx-auto">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
                 </div>
                 <div class="my-[1vw] mx-auto">
                     <button
@@ -199,11 +206,17 @@
                 <div class="w-fit my-[1vw] mx-auto text-[1.8vw] font-bold text-azul-univ">
                     Definir Requisitos De Archivos
                 </div>
+                <div class="bg-azul-pedro-400 rounded-[0.5vw] px-[1vw] py-[0.5vw] grid [grid-template-columns:0.1fr_2fr_1fr_0.5fr] w-[80%] mx-auto">
+                    <span class="material-symbols-outlined">check</span>
+                    <div class="m-auto">Nombre</div>
+                    <div class="m-auto">Tipo de Carpeta</div>
+                    <div class="m-auto">Acciones</div>
+                </div>
                 <div id="lstCargaArchivos">
                 </div>
                 <div class="w-full flex">
                     <button id="btnAgregarArchivo"
-                        class="bg-lime-300 text-[0.8vw] rounded-[0.5vw] px-[0.5vw] py-[0.25vw] ml-auto mr-[1vw] mt-[1vw] transition-all duration-300 ease-linear hover:bg-lime-600">Añadir
+                        class="bg-azul-pedro-600 text-white text-[0.8vw] rounded-[0.5vw] px-[0.5vw] py-[0.25vw] ml-auto mr-[1vw] mt-[1vw] transition-all duration-300 ease-linear hover:bg-azul-pedro-800">Añadir
                         Requisito de Archivo</button>
                 </div>
             </div>

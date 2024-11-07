@@ -49,6 +49,7 @@ class ConvocatoriaController extends Controller
             'fechas_inicio.*' => 'date',
             'fechas_termino.*' => 'date',
             'fileBases' => 'required|file|max:10240',
+            'idsArchivos' => 'required|array|min:1',
         ]);
 
         $idsAct = $request->input('idActividades');
@@ -85,6 +86,8 @@ class ConvocatoriaController extends Controller
 
         $convocatoria->actividades()->attach($data);
 
+        $convocatoria->itemsArchivos()->attach($request->idsArchivos);
+
         return response()->json(['redirect' => route('convocatorias')]);
         
     }
@@ -103,6 +106,7 @@ class ConvocatoriaController extends Controller
     public function edit(string $id)
     {
         $convocatoria = Convocatoria::FindorFail($id);
+        $convocatoria->itemsArchivos;
         $actividades = Actividad::all();
         return view('editarConvocatoria', compact('convocatoria', 'actividades'));
     }

@@ -18,6 +18,7 @@ class ItemsArchivos extends Model
 
     protected $fillable = [
         'nombre',
+        'tipo_carpeta'
     ];
 
     public function convocatoria()
