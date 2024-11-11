@@ -113,3 +113,7 @@ Route::post('deleteArchivo', [ItemsArchivosController::class, 'destroy'])->name(
 Route::get('editArchivo', [ItemsArchivosController::class, 'edit'])->name('editArchivo');
 
 Route::post('updateArchivo', [ItemsArchivosController::class, 'update'])->name('updateArchivo');
+
+//Ruta de prueba
+
+Route::view('prueba', 'prueba');

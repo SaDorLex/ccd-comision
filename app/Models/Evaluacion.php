@@ -23,6 +23,6 @@ class Evaluacion extends Model
 
     public function plaza()
     {
-        return $this->belongsTo(Evaluacion::class, 'id_plaza');
+        return $this->belongsTo(Plaza::class, 'id_plaza');
     }
 }
