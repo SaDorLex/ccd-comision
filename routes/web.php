@@ -2,6 +2,7 @@
 
 use App\Models\Actividad;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\ClasificacionController;
 use App\Http\Controllers\ConvocatoriaController;
@@ -117,3 +118,7 @@ Route::post('updateArchivo', [ItemsArchivosController::class, 'update'])->name('
 //Ruta de prueba
 
 Route::view('prueba', 'prueba');
+
+//CRUD de los Archivos que envia el postulante ... hay que cambiar el nombre otra vez
+
+Route::post('aceptarArchivo', [ArchivoController::class, 'aceptarArchivo'])->name('aceptarArchivo');

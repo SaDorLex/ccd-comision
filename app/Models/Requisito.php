@@ -15,4 +15,12 @@ class Requisito extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function archivos(){
+        return $this->hasMany(Archivo::class, 'id_requisito');
+    }
+
+    public function itemArchivo(){
+        return $this->belongsTo(ItemsArchivos::class, 'id_item');
+    }
 }

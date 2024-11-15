@@ -1,6 +1,7 @@
-import './bootstrap';
+// Importación de módulos externos
 import Chart from 'chart.js/auto';
 
+// Código para inicializar algo con Chart.js
 document.addEventListener('DOMContentLoaded', function () {
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {

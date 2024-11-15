@@ -25,4 +25,9 @@ class Evaluacion extends Model
     {
         return $this->belongsTo(Plaza::class, 'id_plaza');
     }
+
+    public function archivos()
+    {
+        return $this->hasMany(Archivo::class, 'id_postulacion');
+    }
 }
