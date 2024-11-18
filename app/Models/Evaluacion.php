@@ -9,25 +9,15 @@ class Evaluacion extends Model
 {
     use HasFactory;
 
-    protected $table = "postulaciones";
+    protected $table = "evaluacion_merito";
 
-    public function postulante()
+    public function postulacion()
     {
-        return $this->belongsTo(Postulante::class, 'id_postulante');
+        return $this->belongsTo(Postulacion::class, 'id_postulacion');
     }
 
-    public function pago()
+    public function seccion()
     {
-        return $this->belongsTo(Pago::class, 'id_pago');
-    }
-
-    public function plaza()
-    {
-        return $this->belongsTo(Plaza::class, 'id_plaza');
-    }
-
-    public function archivos()
-    {
-        return $this->hasMany(Archivo::class, 'id_postulacion');
+        return $this->belongsTo(SeccionEvaluaciones::class, 'id_seccion');
     }
 }

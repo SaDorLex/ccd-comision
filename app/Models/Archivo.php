@@ -10,7 +10,7 @@ class Archivo extends Model
     use HasFactory;
 
     public function postulacion(){
-        return $this->belongsTo(Evaluacion::class, 'id_postulacion');
+        return $this->belongsTo(Postulacion::class, 'id_postulacion');
     }
 
     public function requisito(){

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Convocatoria;
-use App\Models\Evaluacion;
+use App\Models\Postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class EvaluacionController extends Controller
+class PostulacionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $evaluaciones = Evaluacion::all();
+        $evaluaciones = Postulacion::all();
         return view('evaluaciones', compact('evaluaciones'));
     }
 
@@ -39,7 +39,7 @@ class EvaluacionController extends Controller
      */
     public function show(string $id)
     {
-        $evaluacion = Evaluacion::FindorFail($id);
+        $evaluacion = Postulacion::FindorFail($id);
         return view('evaluar',compact('evaluacion'));
     }
 
@@ -75,7 +75,7 @@ class EvaluacionController extends Controller
             $evaluaciones = $convocatorias->plazas->flatMap->evaluacion;
         }else
         {
-            $evaluaciones = Evaluacion::where('id_plaza', $request->idPlaza)->get();
+            $evaluaciones = Postulacion::where('id_plaza', $request->idPlaza)->get();
         }
         return view('evaluaciones', compact('evaluaciones'));
     }

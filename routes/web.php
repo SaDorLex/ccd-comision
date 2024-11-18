@@ -1,25 +1,22 @@
 <?php
 
-use App\Models\Actividad;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\ClasificacionController;
 use App\Http\Controllers\ConvocatoriaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartamentoAcademicoController;
-use App\Http\Controllers\EvaluacionController;
+use App\Http\Controllers\PostulacionController;
 use App\Http\Controllers\FacultadController;
 use App\Http\Controllers\HorarioConvocatoriaController;
 use App\Http\Controllers\ItemsArchivosController;
 use App\Http\Controllers\PlazaController;
+use App\Http\Controllers\RubroController;
 use App\Http\Controllers\SemestreAcademicoController;
-use App\Models\Convocatoria;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('inicio');
-
+Route::get('/', [DashboardController::class, 'dashboard'])->name('inicio');
 
 //CRUD de las actividades
 
@@ -95,11 +92,11 @@ Route::get('ultimoHorario', [HorarioConvocatoriaController::class, 'lastHour'])-
 
 //CRUD de las evaluaciones
 
-Route::get('evaluaciones', [EvaluacionController::class, 'index'])->name('evaluaciones');
+Route::get('evaluaciones', [PostulacionController::class, 'index'])->name('evaluaciones');
 
-Route::get('buscarEvaluacion', [EvaluacionController::class, 'filtrar'])->name('buscarEvaluacion');
+Route::get('buscarEvaluacion', [PostulacionController::class, 'filtrar'])->name('buscarEvaluacion');
 
-Route::get('evaluaciones/{id}', [EvaluacionController::class, 'show'])->name('evaluar');
+Route::get('evaluaciones/{id}', [PostulacionController::class, 'show'])->name('evaluar');
 
 //CRUD de los items de archivos para subir??? hay que cambiarle el nombre a esto :/
 
@@ -122,3 +119,7 @@ Route::view('prueba', 'prueba');
 //CRUD de los Archivos que envia el postulante ... hay que cambiar el nombre otra vez
 
 Route::post('aceptarArchivo', [ArchivoController::class, 'aceptarArchivo'])->name('aceptarArchivo');
+
+//CRUD de la rubrica y etc (HAY QUE CAMBIAR LOS NOMBRES EN SERIO)
+
+Route::get('rubrica', [RubroController::class, 'index'])->name('rubrica');

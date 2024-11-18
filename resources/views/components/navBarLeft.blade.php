@@ -26,7 +26,13 @@
     <a href="{{ route('evaluaciones') }}">
         <div class="w-full py-[1vw] px-0 flex cursor-pointer transition-all ease-linear duration-500 hover:bg-gray-300">
             <span class="material-symbols-outlined my-0 mr-[1vw] ml-[3vw] text-[2vw]">mail</span>
-            <p class="my-auto text-[1.2vw]">Evaluaciones</p> 
+            <p class="my-auto text-[1.2vw]">Evaluaciones</p>
+        </div>
+    </a>
+    <a href="{{ route('rubrica') }}">
+        <div class="w-full py-[0.2vw] flex cursor-pointer transition-all ease-linear duration-500 hover:bg-gray-300">
+            <span class="material-symbols-outlined my-0 mr-[1vw] ml-[3vw] text-[2vw]">summarize</span>
+            <p class="my-auto text-[1.2vw]">Rúbrica</p>
         </div>
     </a>
 </div>
