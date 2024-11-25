@@ -11,6 +11,17 @@ class SeccionEvaluaciones extends Model
 
     protected $table = "secciones_evaluacion";
 
+    protected $fillable = [
+        'id_rubro',
+        'nombre',
+        'puntaje'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     public function evaluaciones()
     {
         return $this->hasMany(Evaluacion::class, 'id_seccion');

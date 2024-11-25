@@ -123,3 +123,9 @@ Route::post('aceptarArchivo', [ArchivoController::class, 'aceptarArchivo'])->nam
 //CRUD de la rubrica y etc (HAY QUE CAMBIAR LOS NOMBRES EN SERIO)
 
 Route::get('rubrica', [RubroController::class, 'index'])->name('rubrica');
+
+Route::post('storeRubrica', [RubroController::class, 'store'])->name('storeRubrica');
+
+Route::get('listarPorMeritos', [RubroController::class, 'listarPorMeritos'])->name('listarPorMeritos');
+
+Route::get('listarPorDesempeño', [RubroController::class, 'listarPorDesempeño'])->name('listarPorDesempeño');

@@ -13,7 +13,8 @@ class Rubro extends Model
 
     protected $fillable = [
         'nombre',
-        'puntaje'
+        'puntaje',
+        'tipo'
     ];
 
     public function secciones()

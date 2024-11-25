@@ -35,8 +35,12 @@ class RubroController extends Controller
         ]);
 
         Rubro::create([
-            'nombre' => $request->nombre,
+            'nombre' => $request->input('nombre'),
+            'puntaje' => $request->input('puntaje'),
+            'tipo' => $request->input('tipo'),
         ]);
+
+        return redirect()->route('rubrica');
     }
 
     /**
@@ -69,5 +73,29 @@ class RubroController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function listarPorMeritos(){
+        $rubros = Rubro::where('tipo','0')->get();
+
+        $html = '';
+
+        foreach($rubros as $rubro){
+            $html .= view('components.seccionRubrica', compact('rubro'))->render();
+        }
+
+        return response()->json(['html'=>$html]);
+    }
+
+    public function listarPorDesempeño(){
+        $rubros = Rubro::where('tipo','1')->get();
+
+        $html = '';
+
+        foreach($rubros as $rubro){
+            $html .= view('components.seccionRubrica', compact('rubro'))->render();
+        }
+
+        return response()->json(['html'=>$html]);
     }
 }
